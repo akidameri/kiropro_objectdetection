@@ -1,0 +1,92 @@
+# This script is used in Omniverse Replicator to generate synthetic data
+
+import omni.replicator.core as rep
+
+# Randomize the camera position using basic uniform distribution
+
+with rep.new_layer():
+
+    # Create camera
+    # https://docs.omniverse.nvidia.com/py/replicator/source/extensions/omni.replicator.core/docs/API.html#omni.replicator.core.create.camera
+    camera = rep.create.camera(focus_distance=200,f_stop=0.5)
+    render_product  = rep.create.render_product(camera, (1024, 1024))
+
+    # Defining a plane to place the avocado
+    plane = rep.create.plane(scale=100, visible=True)
+
+    # Defining the avocado starting from the NVIDIA residential provided assets. Position and semantics of this asset are modified.
+    AVOCADO = 'omniverse://localhost/NVIDIA/Assets/ArchVis/Residential/Food/Fruit/Avocado01.usd'
+    
+    def get_gears():
+        gears = rep.create.from_usd(AVOCADO)
+        # Add semantics
+        rep.modify.semantics([('class', 'gears')])
+        with gears:
+            # Randomize pose
+            rep.modify.pose(
+                  position=(-50, 0, -50),
+                  rotation=(-90,-45, 0)
+                  )
+            # Randomize texture
+            rep.randomizer.texture(textures=[
+                  'omniverse://localhost/NVIDIA/Materials/vMaterials_2/Ground/textures/aggregate_exposed_diff.jpg',
+                  'omniverse://localhost/NVIDIA/Materials/vMaterials_2/Ground/textures/gravel_track_ballast_diff.jpg',
+                  'omniverse://localhost/NVIDIA/Materials/vMaterials_2/Ground/textures/gravel_track_ballast_multi_R_rough_G_ao.jpg',
+                  'omniverse://localhost/NVIDIA/Materials/vMaterials_2/Ground/textures/rough_gravel_rough.jpg'
+                  ])
+    
+    def hide_bear():
+        bear = rep.get.prims(path_pattern='/Root/Geometry/Bear')
+        with bear:
+            rep.modify.semantics([('class', 'bear')])
+            rep.modify.visibility(rep.distribution.choice([True, False]))
+        return bear.node
+
+    rep.randomizer.register(hide_bear)
+    # Randomizing dome light            
+    def dome_lights():
+        lights = rep.create.light(
+            light_type="Dome",
+            rotation= (270,0,0),
+            texture=rep.distribution.choice([
+                'omniverse://localhost/NVIDIA/Assets/Skies/Cloudy/champagne_castle_1_4k.hdr',
+                'omniverse://localhost/NVIDIA/Assets/Skies/Clear/evening_road_01_4k.hdr',
+                'omniverse://localhost/NVIDIA/Assets/Skies/Clear/mealie_road_4k.hdr',
+                'omniverse://localhost/NVIDIA/Assets/Skies/Clear/qwantani_4k.hdr'
+                ])
+            )
+        return lights.node
+    
+    # Randomizing light source
+    def sphere_lights(num):
+        lights = rep.create.light(
+            light_type="Sphere",
+            temperature=rep.distribution.normal(6500, 500),
+            intensity=rep.distribution.normal(35000, 5000),
+            position=rep.distribution.uniform((-300, -300, -300), (300, 300, 300)),
+            scale=rep.distribution.uniform(50, 100),
+            count=num
+        )
+        return lights.node
+        
+    rep.randomizer.register(get_gears)   
+    rep.randomizer.register(dome_lights)
+    rep.randomizer.register(sphere_lights)
+
+    # Initialize and attach writer
+    writer = rep.WriterRegistry.get("BasicWriter")
+    writer.initialize(
+        output_dir="output_images",
+        rgb=True,
+        bounding_box_2d_tight=True)
+    
+    writer.attach([render_product])
+
+    with rep.trigger.on_frame(num_frames=10):
+        rep.randomizer.get_gears()
+        rep.randomizer.dome_lights()
+        rep.randomizer.sphere_lights(10)
+        with camera:
+            rep.modify.pose(position=rep.distribution.uniform((-500, 200, -500), (500, 500, 500)), look_at=(0,0,0))
+     
+    rep.orchestrator.run()
