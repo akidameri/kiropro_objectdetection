@@ -18,7 +18,7 @@ with rep.new_layer():
             #rep.physics.rigid_body(
                 #velocity=rep.distribution.uniform((-0,0,-0),(0,0,0)),
                 #angular_velocity=rep.distribution.uniform((-0,0,-100),(0,0,0)))
-        #return gear
+        return gear
         
     #GEARS = 'omniverse://localhost/Projects/Gears/CAD/Spur/USD'
     
