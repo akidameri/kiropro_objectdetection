@@ -2,7 +2,7 @@ import omni.replicator.core as rep
 
 with rep.new_layer():
     
-    GEAR = 'omniverse://localhost/Projects...
+    GEAR = 'omniverse://localhost/Projects/Gears/CAD/gear_01.usd'
     SURFACE = 'omniverse://localhost/NVIDIA/Assets/Scenes/Templates/Basic/display_riser.usd'
     ENVS = 'omniverse://localhost/NVIDIA/Assets/Scenes/Templates/Interior/ZetCG_ExhibitionHall.usd'
     
@@ -18,7 +18,7 @@ with rep.new_layer():
             #rep.physics.rigid_body(
                 #velocity=rep.distribution.uniform((-0,0,-0),(0,0,0)),
                 #angular_velocity=rep.distribution.uniform((-0,0,-100),(0,0,0)))
-        return gear
+        #return gear
         
     #GEARS = 'omniverse://localhost/Projects...
     
