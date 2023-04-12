@@ -69,7 +69,7 @@ with rep.new_layer():
     with surface:
         rep.physics.collider()
         
-    camera = rep.create.camera(focus_distance=800, f_stop=0.5)
+    camera = rep.create.camera()
     render_product = rep.create.render_product(camera, resolution=(1280, 1024))
      
     writer = rep.WriterRegistry.get("BasicWriter")
@@ -81,6 +81,6 @@ with rep.new_layer():
         #rep.randomizer.get_gears()
         rep.randomizer.sphere_lights()
         with camera:
-            rep.modify.pose(position=rep.distribution.uniform((-500, 200, -500), (500, 500, 500)), look_at=(0,0,0))
+            rep.modify.pose(position=rep.distribution.uniform((-500, 200, 800), (500, 500, 1000)), look_at=(0,0,0))
             
     #rep.orhestrator.run()
