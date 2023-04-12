@@ -71,10 +71,6 @@ with rep.new_layer():
         
     camera = rep.create.camera()
     render_product = rep.create.render_product(camera, resolution=(1280, 1024))
-     
-    writer = rep.WriterRegistry.get("BasicWriter")
-    writer.initialize(output_dir="_output", rgb=True, bounding_box_2d_tight=True)
-    writer.attach([render_product])
 
     with rep.trigger.on_frame(num_frames=100):
         rep.randomizer.get_gear()
@@ -82,5 +78,9 @@ with rep.new_layer():
         rep.randomizer.sphere_lights()
         with camera:
             rep.modify.pose(position=rep.distribution.uniform((-500, 200, 800), (500, 500, 1000)), look_at=(0,0,0))
+            
+    writer = rep.WriterRegistry.get("BasicWriter")
+    writer.initialize(output_dir="_output", rgb=True, bounding_box_2d_tight=True, distance_to_camera=True, distance_to_image_plane=True, normals=True)
+    writer.attach([render_product])
             
     #rep.orhestrator.run()
