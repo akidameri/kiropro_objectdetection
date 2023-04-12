@@ -13,7 +13,7 @@ with rep.new_layer():
             rep.modify.pose(
                 position=rep.distribution.uniform((-50, 5, 0), (50, 20, 0)),
                 rotation=rep.distribution.uniform((0,-180, 0), (0, 180, 0)),
-                scale = 5
+                scale = 2
             )
 
             rep.physics.rigid_body(
@@ -48,7 +48,7 @@ with rep.new_layer():
     # trigger on frame for an interval
 
     with rep.trigger.on_time(interval=2,num=10):
-        rep.randomizer.env_props(10)
+        rep.randomizer.env_props(2)
         rep.randomizer.sphere_lights(10)
         with camera:
             rep.modify.pose(position=rep.distribution.uniform((-50, 20, 100), (50, 50, 150)), look_at=surface)
