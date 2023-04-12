@@ -2,7 +2,7 @@ import omni.replicator.core as rep
 
 with rep.new_layer():
     # Define paths for the character, the props, the environment and the surface where the assets will be scattered in.
-    PROPS = 'omniverse://localhost/Projects/Gears/CAD/Spur/USD'
+    PROPS = 'omniverse://localhost/Projects/Gears/CAD/Helical/USD'
     SURFACE = 'omniverse://localhost/NVIDIA/Assets/Scenes/Templates/LookDev/Decor_Concrete.usd'
     ENVS = 'omniverse://localhost/NVIDIA/Assets/Scenes/Templates/Interior/ZetCG_ExhibitionHall.usd'
 
@@ -13,7 +13,7 @@ with rep.new_layer():
             rep.modify.pose(
                 position=rep.distribution.uniform((-50, 5, 0), (50, 20, 0)),
                 rotation=rep.distribution.uniform((0,-180, 0), (0, 180, 0)),
-                scale = 10
+                scale = 5
             )
 
             rep.physics.rigid_body(
