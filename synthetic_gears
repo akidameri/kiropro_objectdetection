@@ -11,7 +11,7 @@ with rep.new_layer():
         instances = rep.randomizer.instantiate(rep.utils.get_usd_files(PROPS, recursive=True), size=size, mode='scene_instance')
         with instances:
             rep.modify.pose(
-                position=rep.distribution.uniform((-50, 5, -50), (50, 20, 50)),
+                position=rep.distribution.uniform((-50, 5, 0), (50, 20, 0)),
                 rotation=rep.distribution.uniform((0,-180, 0), (0, 180, 0)),
                 scale = 10
             )
