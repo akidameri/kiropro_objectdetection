@@ -20,7 +20,7 @@ with rep.new_layer():
                 #angular_velocity=rep.distribution.uniform((-0,0,-100),(0,0,0)))
         #return gear
         
-    #GEARS = 'omniverse://localhost/Projects...
+    #GEARS = 'omniverse://localhost/Projects/Gears/CAD/Spur/USD'
     
     #def get_gears():
         #gears = rep.create.from_dir(GEARS, semantics=[('class', 'gear')]
@@ -84,6 +84,3 @@ with rep.new_layer():
             rep.modify.pose(position=rep.distribution.uniform((-500, 200, -500), (500, 500, 500)), look_at=(0,0,0))
             
     #rep.orhestrator.run()
-   
-
-   
