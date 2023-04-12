@@ -83,4 +83,4 @@ with rep.new_layer():
     writer.initialize(output_dir="_output", rgb=True, bounding_box_2d_tight=True, distance_to_camera=True, distance_to_image_plane=True, normals=True)
     writer.attach([render_product])
             
-    #rep.orhestrator.run()
+    rep.orhestrator.run()
