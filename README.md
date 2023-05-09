@@ -1,1 +1,1 @@
-# kiropro_objectdetection
+# Object Detection using YOLOV7
