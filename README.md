@@ -24,6 +24,6 @@ Other code files inside the maincodes directory consist of:
   
 3) format_bb2d_labels_domain_rand.py and format_bb2d_labels_syndata_gen.py: They are used to convert the default label format to YOLO label format. The difference between these two is that, the format_bb2d_labels_domain_rand.py is mainly used to convert labels within DR datasets, while the another code is used for other datasets outside DR applications.
 
-4) move_and_rename.py: The code is used to move and rename image and label files
+4) move_and_rename.py: The code is used to move and rename image and label files.
 
 5) train_val_test_split.py: It used to split the dataset into training, validation, and test sets.
