@@ -12,10 +12,18 @@ Inside the maincodes/syngears directory, you will find the codes to generate syn
 
 ## The maincodes/domain-randomisation-with-physics Directory
 
-Inside the maincodes/domain-randomisation-with-physics directory, you will find codes to generate synthetic data to create domain randomisation datasets, discussed in Chapter 6.3.
+Inside the maincodes/domain-randomisation-with-physics directory, you will find codes to generate synthetic data to create domain randomisation (DR) datasets, discussed in Chapter 6.3.
 
 
 ## Others
 Other code files inside the maincodes directory consist of:
 
-1) bb2d_visualizer_npy.py : 
+1) bb2d_visualizer_npy.py : The code is used to visualise the bounding box annotation from the label files.
+   
+2) dataset_reducer.py: The code is used to reduce the size of dataset. The code will randomly choose image and label files based on the input percentage reduction, and omit them. It is used in the approaches in Chapter 6.1 and Chapter 6.2.
+  
+3) format_bb2d_labels_domain_rand.py and format_bb2d_labels_syndata_gen.py: They are used to convert the default label format to YOLO label format. The difference between these two is that, the format_bb2d_labels_domain_rand.py is mainly used to convert labels within DR datasets, while the another code is used for other datasets outside DR applications.
+
+4) move_and_rename.py: The code is used to move and rename image and label files
+
+5) train_val_test_split.py: It used to split the dataset into training, validation, and test sets.
